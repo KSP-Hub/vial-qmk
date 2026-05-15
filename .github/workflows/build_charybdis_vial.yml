@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       keymap:
-        description: 'Keymap name (vial / wellum / default)'
+        description: 'Keymap name (vial / default / wellum)'
         required: true
         default: 'vial'
 
@@ -18,27 +18,35 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-          fetch-depth: 0
-          fetch-tags: true
+          fetch-depth: 1          # ⚡ Достаточно для компиляции, ускоряет checkout в 3-5 раз
           repository: KSP-Hub/vial-qmk
           token: ${{ secrets.GITHUB_TOKEN }}
-          ssh-strict: trues
-          ssh-user: git
-          persist-credentials: true
+          persist-credentials: false
           clean: true
-          sparse-checkout-cone-mode: true
-          show-progress: true
-          lfs: false
           set-safe-directory: true
 
-      - name: Compile Firmware
+      - name: Verify keymap exists
         run: |
-          echo "🔨 Building keymap: ${{ github.event.inputs.keymap }}"
-          qmk compile -kb bastardkb/charybdis/4x6/v2/splinky_2 -km ${{ github.event.inputs.keymap }}
+          KEYMAP_DIR="keyboards/bastardkb/charybdis/4x6/keymaps/${{ github.event.inputs.keymap }}"
+          if [ ! -d "$KEYMAP_DIR" ]; then
+            echo "❌ Keymap '${{ github.event.inputs.keymap }}' not found in $KEYMAP_DIR"
+            echo "📂 Available keymaps:"
+            ls -1 keyboards/bastardkb/charybdis/4x6/keymaps/
+            exit 1
+          fi
+          echo "✅ Keymap found: $KEYMAP_DIR"
+
+      - name: Compile Firmware
+        shell: bash
+        run: |
+          echo "🔨 Building: bastardkb/charybdis/4x6/v2/splinky_2:${{ github.event.inputs.keymap }}"
+          qmk compile -kb bastardkb/charybdis/4x6/v2/splinky_2 -km ${{ github.event.inputs.keymap }} -j $(nproc)
 
       - name: Upload UF2 artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: charybdis-4x6-${{ github.event.inputs.keymap }}-uf2
           path: .build/*.uf2
           retention-days: 7
+          if-no-files-found: error
