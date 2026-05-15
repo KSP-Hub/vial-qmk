@@ -59,6 +59,14 @@
 // - `CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS`
 // - `CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD`
 // #define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
+/**
+ * Явное назначение SPI-пинов для PMW3360 на RP2040.
+ * Исключает конфликт с матричными колонками GP6/GP7/GP8.
+ */
+#    define SPI_SCK_PIN GP22
+#    define SPI_MOSI_PIN GP23
+#    define SPI_MISO_PIN GP20
+#    define POINTING_DEVICE_CS_PIN GP21
 #endif // POINTING_DEVICE_ENABLE
 
 /* RGB Matrix. */
