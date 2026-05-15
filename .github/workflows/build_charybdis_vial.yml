@@ -1,0 +1,33 @@
+name: Build Charybdis 4x6 Vial
+
+on:
+  workflow_dispatch:
+    inputs:
+      keymap:
+        description: 'Keymap name (vial / wellum / default)'
+        required: true
+        default: 'vial'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli:latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Compile firmware
+        run: |
+          git config --global --add safe.directory /__w/vial-qmk/vial-qmk
+          qmk compile -kb bastardkb/charybdis/4x6/v2/splinky_2 -km ${{ github.event.inputs.keymap }}
+
+      - name: Upload UF2 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: charybdis-4x6-vial-uf2
+          path: .build/*.uf2
+          retention-days: 7
