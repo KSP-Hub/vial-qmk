@@ -39,6 +39,11 @@ jobs:
           echo "🔨 Building: bastardkb/charybdis/4x6/v2/splinky_2:${{ github.event.inputs.keymap }}"
           qmk compile -kb bastardkb/charybdis/4x6/v2/splinky_2 -km ${{ github.event.inputs.keymap }} -j $(nproc)
 
+      - name: Check UF2 output- name: Check UF2 output
+        run: |
+          echo "🔍 Ищем скомпилированный файл..."
+          ls -la .build/*.uf2 || echo "❌ Файл .uf2 не найден в .build/"
+
       - name: Upload UF2 artifact
         if: success()
         uses: actions/upload-artifact@v4
