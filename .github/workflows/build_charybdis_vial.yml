@@ -18,8 +18,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-          fetch-depth: 1
+          fetch-depth: 0
           fetch-tags: true
+          repository: KSP-Hub/vial-qmk
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ssh-strict: trues
+          ssh-user: git
+          persist-credentials: true
+          clean: true
+          sparse-checkout-cone-mode: true
+          show-progress: true
+          lfs: false
+          set-safe-directory: true
 
       - name: Compile Firmware
         run: |
