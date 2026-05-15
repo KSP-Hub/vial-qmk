@@ -22,8 +22,9 @@ jobs:
 
       - name: Compile Firmware
         run: |
-          qmk compile bastardkb/charybdis/4x6/v2/splinky_2:vial
+          qmk compile -kb bastardkb/charybdis/4x6/v2/splinky_2 -km vial
           ls -R .build/ || echo ".build directory not found"
+        shell: sh -e {0}
 
       - name: Upload UF2 artifact
         uses: actions/upload-artifact@v4
