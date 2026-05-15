@@ -1,18 +1,16 @@
 name: Build Charybdis 4x6 Vial
-
 on:
   workflow_dispatch:
     inputs:
       keymap:
-        description: 'Keymap name (vial / default / wellum)'
+        description: 'Keymap name (default / vial / wellum)'
         required: true
-        default: 'vial'
+        default: 'default'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     container: ghcr.io/qmk/qmk_cli:latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -40,13 +38,21 @@ jobs:
         shell: bash
         run: |
           echo "🔨 Building: bastardkb/charybdis/4x6/v2/splinky_2:${{ github.event.inputs.keymap }}"
-          make bastardkb/charybdis/4x6/v2/splinky_2:${{ github.event.inputs.keymap }} -j$(nproc)
+          qmk compile -kb bastardkb/charybdis/4x6/v2/splinky_2 -km ${{ github.event.inputs.keymap }} -j$(nproc)
+
+      - name: Debug build directory
+        if: always()
+        run: |
+          echo "📁 Contents of .build/:"
+          ls -R .build/ || echo "⚠️ .build/ directory is missing or empty"
 
       - name: Upload UF2 artifact
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: charybdis-4x6-${{ github.event.inputs.keymap }}-uf2
-          path: .build/*.uf2
+          path: |
+            .build/*.uf2
+            .build/**/*.uf2
           retention-days: 7
           if-no-files-found: error
