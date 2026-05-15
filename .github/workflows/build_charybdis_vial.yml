@@ -3,10 +3,9 @@ on:
   workflow_dispatch:
     inputs:
       keymap:
-        description: 'Keymap name (default / vial / wellum)'
+        description: 'Keymap name (vial / default / wellum)'
         required: true
-        default: 'default'
-
+        default: 'vial'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-          fetch-depth: 1
+          fetch-depth: 0
           repository: KSP-Hub/vial-qmk
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: false
@@ -25,11 +24,11 @@ jobs:
 
       - name: Verify keymap exists
         run: |
-          KEYMAP_DIR="keyboards/bastardkb/charybdis/4x6/keymaps/${{ github.event.inputs.keymap }}"
+          KEYMAP_DIR="keyboards/bastardkb/charybdis/4x6/v2/splinky_2/keymaps/${{ github.event.inputs.keymap }}"
           if [ ! -d "$KEYMAP_DIR" ]; then
             echo "❌ Keymap '${{ github.event.inputs.keymap }}' not found in $KEYMAP_DIR"
             echo "📂 Available keymaps:"
-            ls -1 keyboards/bastardkb/charybdis/4x6/keymaps/
+            ls -1 keyboards/bastardkb/charybdis/4x6/v2/splinky_2/keymaps/
             exit 1
           fi
           echo "✅ Keymap found: $KEYMAP_DIR"
@@ -38,21 +37,13 @@ jobs:
         shell: bash
         run: |
           echo "🔨 Building: bastardkb/charybdis/4x6/v2/splinky_2:${{ github.event.inputs.keymap }}"
-          qmk compile -kb bastardkb/charybdis/4x6/v2/splinky_2 -km ${{ github.event.inputs.keymap }} -j$(nproc)
-
-      - name: Debug build directory
-        if: always()
-        run: |
-          echo "📁 Contents of .build/:"
-          ls -R .build/ || echo "⚠️ .build/ directory is missing or empty"
+          qmk compile -kb bastardkb/charybdis/4x6/v2/splinky_2 -km ${{ github.event.inputs.keymap }} -j $(nproc)
 
       - name: Upload UF2 artifact
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: charybdis-4x6-${{ github.event.inputs.keymap }}-uf2
-          path: |
-            .build/*.uf2
-            .build/**/*.uf2
+          path: .build/*.uf2
           retention-days: 7
           if-no-files-found: error
