@@ -19,14 +19,16 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 1
+          fetch-tags: true
 
       - name: Compile Firmware
         run: |
-          qmk compile -kb bastardkb/charybdis/4x6/v2/splinky_2 -km vial
+          echo "🔨 Building keymap: ${{ github.event.inputs.keymap }}"
+          qmk compile -kb bastardkb/charybdis/4x6/v2/splinky_2 -km ${{ github.event.inputs.keymap }}
 
       - name: Upload UF2 artifact
         uses: actions/upload-artifact@v4
         with:
-          name: charybdis-4x6-vial-uf2
+          name: charybdis-4x6-${{ github.event.inputs.keymap }}-uf2
           path: .build/*.uf2
           retention-days: 7
