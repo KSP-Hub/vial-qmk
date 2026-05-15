@@ -20,10 +20,10 @@ jobs:
           submodules: recursive
           fetch-depth: 1
 
-      - name: Compile firmware
+      - name: Compile Firmware
         run: |
-          git config --global --add safe.directory /__w/vial-qmk/vial-qmk
-          qmk compile -kb bastardkb/charybdis/4x6/v2/splinky_2 -km ${{ github.event.inputs.keymap }}
+          qmk compile bastardkb/charybdis/4x6/v2/splinky_2:vial
+          ls -R .build/ || echo ".build directory not found"
 
       - name: Upload UF2 artifact
         uses: actions/upload-artifact@v4
