@@ -1,4 +1,5 @@
 name: Build Charybdis 4x6 Vial
+
 on:
   workflow_dispatch:
     inputs:
@@ -6,10 +7,12 @@ on:
         description: 'Keymap name (vial / default / wellum)'
         required: true
         default: 'vial'
+
 jobs:
   build:
     runs-on: ubuntu-latest
     container: ghcr.io/qmk/qmk_cli:latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,10 +28,11 @@ jobs:
       - name: Verify keymap exists
         run: |
           KEYMAP_DIR="keyboards/bastardkb/charybdis/4x6/v2/splinky_2/keymaps/${{ github.event.inputs.keymap }}"
+          echo "🔍 Checking directory: $KEYMAP_DIR"
           if [ ! -d "$KEYMAP_DIR" ]; then
             echo "❌ Keymap '${{ github.event.inputs.keymap }}' not found in $KEYMAP_DIR"
             echo "📂 Available keymaps:"
-            ls -1 keyboards/bastardkb/charybdis/4x6/v2/splinky_2/keymaps/
+            ls -1 keyboards/bastardkb/charybdis/4x6/v2/splinky_2/keymaps/ 2>/dev/null || echo "Directory keymaps/ not found"
             exit 1
           fi
           echo "✅ Keymap found: $KEYMAP_DIR"
@@ -38,11 +42,6 @@ jobs:
         run: |
           echo "🔨 Building: bastardkb/charybdis/4x6/v2/splinky_2:${{ github.event.inputs.keymap }}"
           qmk compile -kb bastardkb/charybdis/4x6/v2/splinky_2 -km ${{ github.event.inputs.keymap }} -j $(nproc)
-
-      - name: Check UF2 output- name: Check UF2 output
-        run: |
-          echo "🔍 Ищем скомпилированный файл..."
-          ls -la .build/*.uf2 || echo "❌ Файл .uf2 не найден в .build/"
 
       - name: Upload UF2 artifact
         if: success()
