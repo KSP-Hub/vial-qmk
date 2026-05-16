@@ -20,13 +20,7 @@
 #define SPI_MISO_PIN GP20
 #define POINTING_DEVICE_CS_PIN GP16
 
-/* Отключение RGB (экономит место и убирает конфликты) */
-#undef RGB_MATRIX_ENABLE
-#define RGB_MATRIX_ENABLE FALSE
-
-/* Vial / VIA настройки */
-#define VIA_ENABLE
-#define VIAL_ENABLE
+/* Vial / VIA настройки (VIA_ENABLE и VIAL_ENABLE задаются только в rules.mk) */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 #define VIAL_KEYBOARD_UID { 0x6D, 0xA5, 0xCD, 0x8D, 0xC7, 0x3D, 0x7B, 0xA8 }
 #define VIAL_UNLOCK_COMBO_ROWS { 0, 5 }
