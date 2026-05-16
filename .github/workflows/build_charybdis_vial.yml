@@ -3,35 +3,25 @@ on:
   workflow_dispatch:
     inputs:
       keymap:
-        description: 'Keymap name (vial / default / wellum)'
+        description: 'Keymap name (vial / default)'
         required: true
         default: 'vial'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli:latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           submodules: recursive
-          fetch-depth: 0
+          fetch-depth: 1
           repository: KSP-Hub/vial-qmk
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: false
           clean: true
           set-safe-directory: true
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install QMK CLI
-        run: |
-          python3 -m pip install --upgrade pip
-          pip install qmk
-          qmk setup -y
 
       - name: Verify keymap exists
         run: |
@@ -45,9 +35,16 @@ jobs:
           echo "✅ Keymap found: $KEYMAP_DIR"
 
       - name: Compile Firmware
+        shell: bash
         run: |
           echo "🔨 Building: bastardkb/charybdis/4x6/v2/splinky_2:${{ github.event.inputs.keymap }}"
-          qmk compile -kb bastardkb/charybdis/4x6/v2/splinky_2 -km ${{ github.event.inputs.keymap }} -j $(nproc)
+          make bastardkb/charybdis/4x6/v2/splinky_2:${{ github.event.inputs.keymap }} -j$(nproc)
+
+      - name: List build directory contents
+        if: always()
+        run: |
+          echo "📦 Contents of .build/:"
+          ls -la .build/ || echo "⚠️ .build directory does not exist."
 
       - name: Upload UF2 artifact
         if: success()
