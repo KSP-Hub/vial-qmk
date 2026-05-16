@@ -1,58 +1,36 @@
 #pragma once
 
-#ifdef VIA_ENABLE
-/* VIA configuration. */
-#    define DYNAMIC_KEYMAP_LAYER_COUNT 4
+/* ==========================================================
+   Переопределение пинов под RP2040 Pro Micro + Elite-C Holder 2.1
+   ========================================================== */
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
+#define MATRIX_ROW_PINS { GP29, GP28, GP27, GP26, GP12 }
+#define MATRIX_COL_PINS { GP4, GP5, GP6, GP7, GP8, GP9 }
 
-#    ifdef VIAL_ENABLE
-/** Vial-specific configuration. */
-#        define VIAL_KEYBOARD_UID \
-            { 0x6D, 0xA5, 0xCD, 0x8D, 0xC7, 0x3D, 0x7B, 0xA8 }
-#        define VIAL_UNLOCK_COMBO_ROWS \
-            { 0, 5 }
-#        define VIAL_UNLOCK_COMBO_COLS \
-            { 0, 0 }
+/* SPI для PMW3360 (стандарт BKB RP2040) */
+#undef SPI_DRIVER
+#undef SPI_SCK_PIN
+#undef SPI_MOSI_PIN
+#undef SPI_MISO_PIN
+#undef POINTING_DEVICE_CS_PIN
+#define SPI_DRIVER SPID0
+#define SPI_SCK_PIN GP22
+#define SPI_MOSI_PIN GP23
+#define SPI_MISO_PIN GP20
+#define POINTING_DEVICE_CS_PIN GP16
 
-/** Disable unused vial features to save space if needed. */
-// In addition to RGB Matrix effects, VialRGB also provides direct LED control
-// with a script running on your computer.  Remove to reenable.
-#        define VIALRGB_NO_DIRECT
-#    endif // VIAL_ENABLE
-#endif     // VIA_ENABLE
+/* Отключение RGB (экономит место и убирает конфликты) */
+#undef RGB_MATRIX_ENABLE
+#define RGB_MATRIX_ENABLE FALSE
 
-/* Disable unused features. */
+/* Vial / VIA настройки */
+#define VIA_ENABLE
+#define VIAL_ENABLE
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+#define VIAL_KEYBOARD_UID { 0x6D, 0xA5, 0xCD, 0x8D, 0xC7, 0x3D, 0x7B, 0xA8 }
+#define VIAL_UNLOCK_COMBO_ROWS { 0, 5 }
+#define VIAL_UNLOCK_COMBO_COLS { 0, 0 }
+#define VIALRGB_NO_DIRECT
 #define NO_ACTION_ONESHOT
-
-#ifndef TAPPING_TERM
-/**
- * \brief Configure the global tapping term (default: 200ms).
- */
-#    define TAPPING_TERM 200
-#endif // TAPPING_TERM
-
-/* Charybdis-specific features. */
-#ifdef POINTING_DEVICE_ENABLE
-// Automatically enable the pointer layer when moving the trackball.
-// Раскомментируй, если хочешь, чтобы слой мыши включался сам при движении трекбола:
-// #define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
-#endif // POINTING_DEVICE_ENABLE
-
-/* RGB Matrix. */
-#ifdef RGB_MATRIX_ENABLE
-// Limit maximum brightness to keep power consumption reasonable, and avoid disconnects.
-#    undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 64
-
-// Rainbow swirl as startup mode.
-#    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
-
-// Slow swirl at startup.
-#    define RGB_MATRIX_STARTUP_SPD 32
-
-// Startup values.
-#    define RGB_MATRIX_STARTUP_HUE 0
-#    define RGB_MATRIX_STARTUP_SAT 255
-#    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#    define RGB_MATRIX_STARTUP_HSV RGB_MATRIX_STARTUP_HUE, RGB_MATRIX_STARTUP_SAT, RGB_MATRIX_STARTUP_VAL
-#endif // RGB_MATRIX_ENABLE
+#define TAPPING_TERM 200
