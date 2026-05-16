@@ -1,14 +1,6 @@
 #pragma once
 
-/* ==========================================================
-   Переопределение пинов под RP2040 Pro Micro + Elite-C Holder 2.1
-   ========================================================== */
-#undef MATRIX_ROW_PINS
-#undef MATRIX_COL_PINS
-#define MATRIX_ROW_PINS { GP29, GP28, GP27, GP26, GP12 }
-#define MATRIX_COL_PINS { GP4, GP5, GP6, GP7, GP8, GP9 }
-
-/* SPI для PMW3360 (стандарт BKB RP2040) */
+/* SPI для PMW3360 (пины, на которых трекбол уже заработал) */
 #undef SPI_DRIVER
 #undef SPI_SCK_PIN
 #undef SPI_MOSI_PIN
@@ -20,7 +12,7 @@
 #define SPI_MISO_PIN GP20
 #define POINTING_DEVICE_CS_PIN GP16
 
-/* Vial / VIA настройки (VIA_ENABLE и VIAL_ENABLE задаются только в rules.mk) */
+/* Vial / VIA настройки */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 #define VIAL_KEYBOARD_UID { 0x6D, 0xA5, 0xCD, 0x8D, 0xC7, 0x3D, 0x7B, 0xA8 }
 #define VIAL_UNLOCK_COMBO_ROWS { 0, 5 }
