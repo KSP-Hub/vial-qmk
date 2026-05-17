@@ -1,6 +1,9 @@
 #pragma once
 
-/* SPI для PMW3360 (пины, на которых трекбол уже заработал) */
+/* ==========================================================
+   ⛔ WORKING PINS - DO NOT MODIFY
+   RP2040 Pro Micro + Elite-C Holder 2.1 + PMW3360
+   ========================================================== */
 #undef SPI_DRIVER
 #undef SPI_SCK_PIN
 #undef SPI_MOSI_PIN
@@ -12,7 +15,12 @@
 #define SPI_MISO_PIN GP20
 #define POINTING_DEVICE_CS_PIN GP16
 
-/* Vial / VIA настройки */
+#undef MATRIX_COL_PINS
+#undef MATRIX_ROW_PINS
+#define MATRIX_COL_PINS { GP27, GP28, GP21, GP6, GP7, GP8 }
+#define MATRIX_ROW_PINS { GP29, GP26, GP5, GP4, GP9 }
+
+/* Vial / VIA Configuration */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 #define VIAL_KEYBOARD_UID { 0x6D, 0xA5, 0xCD, 0x8D, 0xC7, 0x3D, 0x7B, 0xA8 }
 #define VIAL_UNLOCK_COMBO_ROWS { 0, 5 }
@@ -21,11 +29,7 @@
 #define NO_ACTION_ONESHOT
 #define TAPPING_TERM 200
 
-/* ==========================================================
-   Fix: align matrix pins with official BKB Splinktegrated / Elite-C Holder 2.1 standard
-   (vial-qmk info.json incorrectly uses GP15 for C3 instead of GP21)
-   ========================================================== */
-#undef MATRIX_COL_PINS
-#undef MATRIX_ROW_PINS
-#define MATRIX_COL_PINS { GP27, GP28, GP21, GP6, GP7, GP8 }
-#define MATRIX_ROW_PINS { GP29, GP26, GP5, GP4, GP9 }
+/* Charybdis Trackball Features */
+#define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
+#define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS 1000
+#define CHARYBDIS_AUTO_SNIPING_ON_LAYER LAYER_POINTER
