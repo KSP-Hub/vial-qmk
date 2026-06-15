@@ -3,81 +3,84 @@
 
 enum charybdis_layers {
     LAYER_BASE = 0,
-    LAYER_LOWER,
-    LAYER_RAISE,
-    LAYER_POINTER,
+    LAYER_SYMBOLS,
+    LAYER_NAV,
+    LAYER_MOUSE,
+    LAYER_EMOJI,
+    LAYER_SYSTEM
 };
 
-#define LOWER MO(LAYER_LOWER)
-#define RAISE MO(LAYER_RAISE)
-#define PT_Z LT(LAYER_POINTER, KC_Z)
-#define PT_SLSH LT(LAYER_POINTER, KC_SLSH)
-
-// Кастомные коды для макросов (привязка в process_record_user)
 enum custom_keycodes {
-    MC_LCHG = QK_USER,
-    MC_NBSP,
-    MC_SUDO,
-    MC_PRINT,
-    MC_SELECT,
-    MC_JOIN,
-    MC_WHERE,
-    MC_FROM,
-    MC_LE,
-    MC_GE,
-    MC_APPROX,
-    MC_PLUSMINUS,
-    MC_RUB,
-    MC_LAQUO,
-    MC_RAQUO,
-    MC_ELLIPSIS
+    MC_DOT_SFT = QK_USER,
+    MC_COMM_SPC,
+    MC_PILCROW, MC_COPYR, MC_REGISTERED, MC_SECTION, MC_TRADE, MC_ELLIPSIS,
+    MC_PI, MC_SUM, MC_SIGMA, MC_INFINITY, MC_DEGREE,
+    MC_APPROXIMATE, MC_LESS_EQUAL, MC_GREATER_EQUAL,
+    MC_SQUARE_ROOT, MC_INTEGRAL, MC_IDENTICAL,
+    MC_NOT, MC_NOT_EQUAL, MC_DIVIDE, MC_MULTIPLY, MC_PLUS_MINUS,
+    MC_EMDASH, MC_ENDASH, MC_LAQUO, MC_RAQUO, MC_LDQUO, MC_RDQUO,
+    MC_NUMERO, MC_CHECK, MC_WARN,
+    EMOJI_WARN, EMOJI_QUEST, EMOJI_MAIL, EMOJI_PHONE, EMOJI_FOLDER,
+    ARROW_L, ARROW_D, ARROW_U, ARROW_R, EM_DASH,
+    EMOJI_CHECK, EMOJI_CROSS, EMOJI_LINK, EMOJI_BOLT, EMOJI_STAR,
+    MC_TARGET, EMOJI_THUMB, EMOJI_FLEX, MC_BULB, MC_FIRE
 };
 
-// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
 [LAYER_BASE] = LAYOUT_charybdis_4x6(
-    // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
-         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
-    // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_TAB,     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-    // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-         KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LSFT,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-         PT_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_INS,     KC_N,    KC_M,    KC_COMM, KC_DOT,  PT_SLSH, KC_RALT,
-    // ╰───────────────────────╮                              ╰─╯                              ╭───────────────────────╯
-                      KC_LGUI, KC_SPC,  LOWER,   RAISE,   KC_ENT,  KC_LALT,    KC_BSPC, KC_DEL
-    // ╰───────────────────────╯                              ╰─╯                              ╰───────────────────────╯
+    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    LT(5,KC_APP),
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    LT(4,KC_LBRC),
+    MC_DOT_SFT, KC_A, KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, MC_COMM_SPC,
+    LSFT(KC_LCTL), KC_Z, KC_X, KC_C,    KC_V,    KC_B,       KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_QUOT, RALT_T(KC_RBRC),
+    MO(2),   LGUI(KC_SPC), LT(3,KC_BSPC), LCTL_T(KC_DEL),   KC_LGUI, MO(1),   LALT_T(KC_ENT), LSFT_T(KC_SPC)
 ),
 
-[LAYER_LOWER] = LAYOUT_charybdis_4x6(
-         KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS,
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_LBRC, KC_P7,   KC_P8,   KC_P9,   KC_RBRC, XXXXXXX,
-         XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,    KC_PPLS, KC_P4,   KC_P5,   KC_P6,   KC_PMNS, KC_PEQL,
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_PAST, KC_P1,   KC_P2,   KC_P3,   KC_PSLS, KC_PDOT,
-                      XXXXXXX, XXXXXXX, _______, XXXXXXX, _______, KC_P0,    XXXXXXX, XXXXXXX
+[LAYER_SYMBOLS] = LAYOUT_charybdis_4x6(
+    MC_PILCROW, MC_COPYR, MC_REGISTERED, MC_SECTION, MC_TRADE, MC_ELLIPSIS, MC_PI, MC_SUM, MC_SIGMA, MC_INFINITY, MC_DEGREE, KC_TRNS,
+    KC_CAPS,    KC_GRV,   MC_APPROXIMATE,KC_NO,      KC_NO,    KC_NO,       MC_LESS_EQUAL, KC_SLSH, KC_BSLS, KC_MINS, MC_EMDASH, MC_ENDASH,
+    MC_LAQUO,   MC_RAQUO, MC_LDQUO,      MC_RDQUO,   KC_NO,    KC_NO,       MC_GREATER_EQUAL, MC_SQUARE_ROOT, MC_INTEGRAL, MC_IDENTICAL, KC_TRNS, KC_TRNS,
+    KC_TRNS,    KC_NO,    TG(1),         KC_NO,      KC_NO,    MC_NOT,      KC_EQL, MC_NOT_EQUAL, MC_DIVIDE, MC_MULTIPLY, MC_PLUS_MINUS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
-[LAYER_RAISE] = LAYOUT_charybdis_4x6(
-         KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-         KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLU,
-         KC_MPLY, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, XXXXXXX,    XXXXXXX, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI, KC_MUTE,
-         KC_MPRV, KC_HOME, KC_PGUP, KC_PGDN, KC_END,  XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLD,
-                      _______, _______, XXXXXXX, _______, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX
+[LAYER_NAV] = LAYOUT_charybdis_4x6(
+    KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+    KC_TRNS, KC_NO,   KC_SCRL, KC_PSCR, KC_INS,  KC_NO,      KC_NO,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_F12,
+    KC_TRNS, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_NO,  KC_NO,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS,
+    KC_TRNS, LCTL(LSFT(KC_Z)), TG(2), KC_NO, KC_NO, KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
-[LAYER_POINTER] = LAYOUT_charybdis_4x6(
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DPI_MOD, S_D_MOD,    S_D_RMOD,DPI_RMOD,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-         XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,    XXXXXXX, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI, XXXXXXX,
-         XXXXXXX, _______, DRGSCRL, SNIPING, EE_CLR,  QK_BOOT,    QK_BOOT, EE_CLR,  SNIPING, DRGSCRL, _______, XXXXXXX,
-                      KC_BTN2, KC_BTN1, KC_BTN3, KC_BTN3, KC_BTN1, KC_BTN2,    XXXXXXX, XXXXXXX
+[LAYER_MOUSE] = LAYOUT_charybdis_4x6(
+    KC_ESC,  KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, KC_NO,      KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_SLEP, KC_PWR,
+    KC_TRNS, DPI_MOD, DPI_RMOD,KC_NO,   S_D_MOD, S_D_RMOD,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS,
+    DRGSCRL, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, SNIPING,    KC_NO,   MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, KC_TRNS,
+    KC_TRNS, MS_BTN4, TG(3),   KC_NO,   MS_BTN5, KC_NO,      KC_NO,   MS_BTN1, MS_BTN3, KC_NO,   MS_BTN2, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+),
+
+[LAYER_EMOJI] = LAYOUT_charybdis_4x6(
+    KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      MC_PI,   MC_CHECK,MC_SIGMA,KC_NO,   KC_NO,   MC_NUMERO,
+    KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      MC_WARN, EMOJI_WARN, EMOJI_QUEST, EMOJI_MAIL, EMOJI_PHONE, EMOJI_FOLDER,
+    KC_TRNS, ARROW_L, ARROW_D, ARROW_U, ARROW_R, KC_NO,      EM_DASH, EMOJI_CHECK, EMOJI_CROSS, EMOJI_LINK, EMOJI_BOLT, EMOJI_STAR,
+    KC_TRNS, KC_NO,   TG(4),   KC_NO,   KC_NO,   KC_NO,      MC_TARGET, EMOJI_THUMB, EMOJI_FLEX, KC_NO, MC_BULB, MC_FIRE,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+),
+
+[LAYER_SYSTEM] = LAYOUT_charybdis_4x6(
+    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   EE_CLR,     QK_BOOT, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   TG(5),   KC_NO,   KC_NO,   KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 )
+
 };
-// clang-format on
 
 #ifdef POINTING_DEVICE_ENABLE
 layer_state_t layer_state_set_user(layer_state_t state) {
-    charybdis_set_pointer_sniping_enabled(layer_state_cmp(state, LAYER_POINTER));
+    charybdis_set_pointer_sniping_enabled(layer_state_cmp(state, LAYER_MOUSE));
     return state;
 }
 #endif
@@ -85,22 +88,59 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-            case MC_LCHG: SEND_STRING(SS_LALT(SS_TAP(X_SPACE))); break;
-            case MC_NBSP: SEND_STRING(SS_LALT(SS_TAP(X_SPACE))); break;
-            case MC_SUDO: SEND_STRING("sudo " SS_TAP(X_ENTER)); break;
-            case MC_PRINT: SEND_STRING("print("); break;
-            case MC_SELECT: SEND_STRING("SELECT "); break;
-            case MC_JOIN: SEND_STRING("JOIN "); break;
-            case MC_WHERE: SEND_STRING("WHERE "); break;
-            case MC_FROM: SEND_STRING("FROM "); break;
-            case MC_LE: SEND_STRING("<="); break;
-            case MC_GE: SEND_STRING(">="); break;
-            case MC_APPROX: SEND_STRING("~="); break;
-            case MC_PLUSMINUS: SEND_STRING("+/-"); break;
-            case MC_RUB: SEND_STRING("₽"); break;
-            case MC_LAQUO: SEND_STRING("«"); break;
-            case MC_RAQUO: SEND_STRING("»"); break;
-            case MC_ELLIPSIS: SEND_STRING("…"); break;
+            case MC_DOT_SFT:    SEND_STRING(". "); set_oneshot_mods(MOD_LSFT); return false;
+            case MC_COMM_SPC:   SEND_STRING(", "); return false;
+            case MC_PILCROW:    SEND_STRING("¶"); return false;
+            case MC_COPYR:      SEND_STRING("©"); return false;
+            case MC_REGISTERED: SEND_STRING("®"); return false;
+            case MC_SECTION:    SEND_STRING("§"); return false;
+            case MC_TRADE:      SEND_STRING("™"); return false;
+            case MC_ELLIPSIS:   SEND_STRING("…"); return false;
+            case MC_PI:         SEND_STRING("π"); return false;
+            case MC_SUM:        SEND_STRING("Σ"); return false;
+            case MC_SIGMA:      SEND_STRING("σ"); return false;
+            case MC_INFINITY:   SEND_STRING("∞"); return false;
+            case MC_DEGREE:     SEND_STRING("°"); return false;
+            case MC_APPROXIMATE:SEND_STRING("≈"); return false;
+            case MC_LESS_EQUAL: SEND_STRING("≤"); return false;
+            case MC_GREATER_EQUAL: SEND_STRING("≥"); return false;
+            case MC_SQUARE_ROOT: SEND_STRING("√"); return false;
+            case MC_INTEGRAL:   SEND_STRING("∫"); return false;
+            case MC_IDENTICAL:  SEND_STRING("≡"); return false;
+            case MC_NOT:        SEND_STRING("¬"); return false;
+            case MC_NOT_EQUAL:  SEND_STRING("≠"); return false;
+            case MC_DIVIDE:     SEND_STRING("÷"); return false;
+            case MC_MULTIPLY:   SEND_STRING("×"); return false;
+            case MC_PLUS_MINUS: SEND_STRING("±"); return false;
+            case MC_EMDASH:     SEND_STRING("—"); return false;
+            case MC_ENDASH:     SEND_STRING("–"); return false;
+            case MC_LAQUO:      SEND_STRING("«"); return false;
+            case MC_RAQUO:      SEND_STRING("»"); return false;
+            case MC_LDQUO:      SEND_STRING("“"); return false;
+            case MC_RDQUO:      SEND_STRING("”"); return false;
+            case MC_NUMERO:     SEND_STRING("№"); return false;
+            case MC_CHECK:      SEND_STRING("✓"); return false;
+            case MC_WARN:       SEND_STRING("⚠"); return false;
+            case EMOJI_WARN:    SEND_STRING("⚠️"); return false;
+            case EMOJI_QUEST:   SEND_STRING("❓"); return false;
+            case EMOJI_MAIL:    SEND_STRING("📧"); return false;
+            case EMOJI_PHONE:   SEND_STRING("📞"); return false;
+            case EMOJI_FOLDER:  SEND_STRING("📁"); return false;
+            case ARROW_L:       SEND_STRING("←"); return false;
+            case ARROW_D:       SEND_STRING("↓"); return false;
+            case ARROW_U:       SEND_STRING("↑"); return false;
+            case ARROW_R:       SEND_STRING("→"); return false;
+            case EM_DASH:       SEND_STRING("—"); return false;
+            case EMOJI_CHECK:   SEND_STRING("✅"); return false;
+            case EMOJI_CROSS:   SEND_STRING("❌"); return false;
+            case EMOJI_LINK:    SEND_STRING("🔗"); return false;
+            case EMOJI_BOLT:    SEND_STRING("⚡"); return false;
+            case EMOJI_STAR:    SEND_STRING("⭐"); return false;
+            case MC_TARGET:     SEND_STRING("🎯"); return false;
+            case EMOJI_THUMB:   SEND_STRING("👍"); return false;
+            case EMOJI_FLEX:    SEND_STRING("💪"); return false;
+            case MC_BULB:       SEND_STRING("💡"); return false;
+            case MC_FIRE:       SEND_STRING("🔥"); return false;
         }
     }
     return true;
