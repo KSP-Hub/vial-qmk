@@ -72,8 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LAYER_SYSTEM] = LAYOUT_charybdis_4x6(
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   EE_CLR,     QK_BOOT, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   TG(5),   KC_NO,   KC_NO,   KC_NO,
+    KC_NO,   KC_NO,   TG(5),   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 )
 
@@ -100,7 +99,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case MC_PI:         SEND_STRING("π"); return false;
             case MC_SUM:        SEND_STRING("Σ"); return false;
             case MC_SIGMA:      SEND_STRING("σ"); return false;
-            case MC_INFINITY:   SEND_STRING(""); return false;
+            case MC_INFINITY:   SEND_STRING("∞"); return false;
             case MC_DEGREE:     SEND_STRING("°"); return false;
             case MC_APPROXIMATE:SEND_STRING("≈"); return false;
             case MC_LESS_EQUAL: SEND_STRING("≤"); return false;
@@ -121,12 +120,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case MC_RDQUO:      SEND_STRING("""); return false;
             case MC_NUMERO:     SEND_STRING("№"); return false;
             case MC_CHECK:      SEND_STRING("✓"); return false;
-            case MC_WARN:       SEND_STRING(""); return false;
+            case MC_WARN:       SEND_STRING("⚠"); return false;
             case EMOJI_WARN:    SEND_STRING("⚠️"); return false;
-            case EMOJI_QUEST:   SEND_STRING("❓"); return false;
-            case EMOJI_MAIL:    SEND_STRING(""); return false;
+            case EMOJI_QUEST:   SEND_STRING(""); return false;
+            case EMOJI_MAIL:    SEND_STRING("📧"); return false;
             case EMOJI_PHONE:   SEND_STRING("📞"); return false;
-            case EMOJI_FOLDER:  SEND_STRING("📁"); return false;
+            case EMOJI_FOLDER:  SEND_STRING(""); return false;
             case ARROW_L:       SEND_STRING("←"); return false;
             case ARROW_D:       SEND_STRING("↓"); return false;
             case ARROW_U:       SEND_STRING("↑"); return false;
@@ -134,14 +133,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case EM_DASH:       SEND_STRING("—"); return false;
             case EMOJI_CHECK:   SEND_STRING("✅"); return false;
             case EMOJI_CROSS:   SEND_STRING("❌"); return false;
-            case EMOJI_LINK:    SEND_STRING(""); return false;
-            case EMOJI_BOLT:    SEND_STRING("⚡"); return false;
+            case EMOJI_LINK:    SEND_STRING("🔗"); return false;
+            case EMOJI_BOLT:    SEND_STRING(""); return false;
             case EMOJI_STAR:    SEND_STRING("⭐"); return false;
-            case MC_TARGET:     SEND_STRING("🎯"); return false;
+            case MC_TARGET:     SEND_STRING(""); return false;
             case EMOJI_THUMB:   SEND_STRING("👍"); return false;
             case EMOJI_FLEX:    SEND_STRING("💪"); return false;
             case MC_BULB:       SEND_STRING("💡"); return false;
-            case MC_FIRE:       SEND_STRING(""); return false;
+            case MC_FIRE:       SEND_STRING("🔥"); return false;
         }
     }
     return true;
