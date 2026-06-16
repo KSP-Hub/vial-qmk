@@ -1,4 +1,3 @@
-cat > config.h << 'EOF'
 #pragma once
 /* ==========================================================
 ⛔ WORKING PINS - DO NOT MODIFY
@@ -33,4 +32,3 @@ RP2040 Pro Micro + Elite-C Holder 2.1 + PMW3360
 #define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 #define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS 1000
 #define CHARYBDIS_AUTO_SNIPING_ON_LAYER LAYER_POINTER
-EOF

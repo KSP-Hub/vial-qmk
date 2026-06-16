@@ -1,4 +1,3 @@
-cat > keymap.c << 'EOF'
 #include QMK_KEYBOARD_H
 #include "timer.h"
 
@@ -55,8 +54,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [LAYER_MOUSE] = LAYOUT_charybdis_4x6(
     KC_ESC,  KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, KC_NO,      KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_SLEP, KC_PWR,
-    KC_TRNS, ANY(DPI_MOD), ANY(DPI_RMOD), KC_NO,   ANY(S_D_MOD), ANY(S_D_RMOD),   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS,
-    ANY(DRGSCRL), MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, ANY(SNIPING),    KC_NO,   MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, KC_TRNS,
+    KC_TRNS, DPI_MOD, DPI_RMOD, DRGSCRL,   S_D_MOD, S_D_RMOD,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS,
+    KC_NO, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, SNIPING,    KC_NO,   MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, KC_TRNS,
     KC_TRNS, MS_BTN4, TG(3),   KC_NO,   MS_BTN5, KC_NO,      KC_NO,   MS_BTN1, MS_BTN3, KC_NO,   MS_BTN2, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
@@ -72,7 +71,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LAYER_SYSTEM] = LAYOUT_charybdis_4x6(
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   EE_CLR,     QK_BOOT, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-    KC_NO,   KC_NO,   TG(5),   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   TG(5),   KC_NO,   KC_NO,   KC_NO,
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 )
 
@@ -90,59 +90,58 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch (keycode) {
             case MC_DOT_SFT:    SEND_STRING(". "); set_oneshot_mods(MOD_LSFT); return false;
             case MC_COMM_SPC:   SEND_STRING(", "); return false;
-            case MC_PILCROW:    SEND_STRING("¶"); return false;
-            case MC_COPYR:      SEND_STRING("©"); return false;
-            case MC_REGISTERED: SEND_STRING("®"); return false;
-            case MC_SECTION:    SEND_STRING("§"); return false;
-            case MC_TRADE:      SEND_STRING("™"); return false;
-            case MC_ELLIPSIS:   SEND_STRING("…"); return false;
-            case MC_PI:         SEND_STRING("π"); return false;
-            case MC_SUM:        SEND_STRING("Σ"); return false;
-            case MC_SIGMA:      SEND_STRING("σ"); return false;
-            case MC_INFINITY:   SEND_STRING("∞"); return false;
-            case MC_DEGREE:     SEND_STRING("°"); return false;
-            case MC_APPROXIMATE:SEND_STRING("≈"); return false;
-            case MC_LESS_EQUAL: SEND_STRING("≤"); return false;
-            case MC_GREATER_EQUAL: SEND_STRING("≥"); return false;
-            case MC_SQUARE_ROOT: SEND_STRING("√"); return false;
-            case MC_INTEGRAL:   SEND_STRING("∫"); return false;
-            case MC_IDENTICAL:  SEND_STRING("≡"); return false;
-            case MC_NOT:        SEND_STRING("¬"); return false;
-            case MC_NOT_EQUAL:  SEND_STRING("≠"); return false;
-            case MC_DIVIDE:     SEND_STRING("÷"); return false;
-            case MC_MULTIPLY:   SEND_STRING("×"); return false;
-            case MC_PLUS_MINUS: SEND_STRING("±"); return false;
-            case MC_EMDASH:     SEND_STRING("—"); return false;
-            case MC_ENDASH:     SEND_STRING("–"); return false;
-            case MC_LAQUO:      SEND_STRING("«"); return false;
-            case MC_RAQUO:      SEND_STRING("»"); return false;
-            case MC_LDQUO:      SEND_STRING("""); return false;
-            case MC_RDQUO:      SEND_STRING("""); return false;
-            case MC_NUMERO:     SEND_STRING("№"); return false;
-            case MC_CHECK:      SEND_STRING("✓"); return false;
-            case MC_WARN:       SEND_STRING("⚠"); return false;
-            case EMOJI_WARN:    SEND_STRING("⚠️"); return false;
-            case EMOJI_QUEST:   SEND_STRING(""); return false;
-            case EMOJI_MAIL:    SEND_STRING("📧"); return false;
-            case EMOJI_PHONE:   SEND_STRING("📞"); return false;
-            case EMOJI_FOLDER:  SEND_STRING(""); return false;
-            case ARROW_L:       SEND_STRING("←"); return false;
-            case ARROW_D:       SEND_STRING("↓"); return false;
-            case ARROW_U:       SEND_STRING("↑"); return false;
-            case ARROW_R:       SEND_STRING("→"); return false;
-            case EM_DASH:       SEND_STRING("—"); return false;
-            case EMOJI_CHECK:   SEND_STRING("✅"); return false;
-            case EMOJI_CROSS:   SEND_STRING("❌"); return false;
-            case EMOJI_LINK:    SEND_STRING("🔗"); return false;
-            case EMOJI_BOLT:    SEND_STRING(""); return false;
-            case EMOJI_STAR:    SEND_STRING("⭐"); return false;
-            case MC_TARGET:     SEND_STRING(""); return false;
-            case EMOJI_THUMB:   SEND_STRING("👍"); return false;
-            case EMOJI_FLEX:    SEND_STRING("💪"); return false;
-            case MC_BULB:       SEND_STRING("💡"); return false;
-            case MC_FIRE:       SEND_STRING("🔥"); return false;
+            case MC_PILCROW:    SEND_STRING("\xC2\xB6"); return false;
+            case MC_COPYR:      SEND_STRING("\xC2\xA9"); return false;
+            case MC_REGISTERED: SEND_STRING("\xC2\xAE"); return false;
+            case MC_SECTION:    SEND_STRING("\xC2\xA7"); return false;
+            case MC_TRADE:      SEND_STRING("\xE2\x84\xA2"); return false;
+            case MC_ELLIPSIS:   SEND_STRING("\xE2\x80\xA6"); return false;
+            case MC_PI:         SEND_STRING("\xCF\x80"); return false;
+            case MC_SUM:        SEND_STRING("\xCE\xA3"); return false;
+            case MC_SIGMA:      SEND_STRING("\xCF\x83"); return false;
+            case MC_INFINITY:   SEND_STRING("\xE2\x88\x9E"); return false;
+            case MC_DEGREE:     SEND_STRING("\xC2\xB0"); return false;
+            case MC_APPROXIMATE:SEND_STRING("\xE2\x89\x88"); return false;
+            case MC_LESS_EQUAL: SEND_STRING("\xE2\x89\xA4"); return false;
+            case MC_GREATER_EQUAL: SEND_STRING("\xE2\x89\xA5"); return false;
+            case MC_SQUARE_ROOT: SEND_STRING("\xE2\x88\x9A"); return false;
+            case MC_INTEGRAL:   SEND_STRING("\xE2\x88\xAB"); return false;
+            case MC_IDENTICAL:  SEND_STRING("\xE2\x89\xA1"); return false;
+            case MC_NOT:        SEND_STRING("\xC2\xAC"); return false;
+            case MC_NOT_EQUAL:  SEND_STRING("\xE2\x89\xA0"); return false;
+            case MC_DIVIDE:     SEND_STRING("\xC3\xB7"); return false;
+            case MC_MULTIPLY:   SEND_STRING("\xC3\x97"); return false;
+            case MC_PLUS_MINUS: SEND_STRING("\xC2\xB1"); return false;
+            case MC_EMDASH:     SEND_STRING("\xE2\x80\x94"); return false;
+            case MC_ENDASH:     SEND_STRING("\xE2\x80\x93"); return false;
+            case MC_LAQUO:      SEND_STRING("\xC2\xAB"); return false;
+            case MC_RAQUO:      SEND_STRING("\xC2\xBB"); return false;
+            case MC_LDQUO:      SEND_STRING("\xE2\x80\x9C"); return false;
+            case MC_RDQUO:      SEND_STRING("\xE2\x80\x9D"); return false;
+            case MC_NUMERO:     SEND_STRING("\xE2\x84\x96"); return false;
+            case MC_CHECK:      SEND_STRING("\xE2\x9C\x93"); return false;
+            case MC_WARN:       SEND_STRING("\xE2\x9A\xA0"); return false;
+            case EMOJI_WARN:    SEND_STRING("\xE2\x9A\xA0\xEF\xB8\x8F"); return false;
+            case EMOJI_QUEST:   SEND_STRING("\xE2\x9D\x93"); return false;
+            case EMOJI_MAIL:    SEND_STRING("\xF0\x9F\x93\xA7"); return false;
+            case EMOJI_PHONE:   SEND_STRING("\xF0\x9F\x93\x9E"); return false;
+            case EMOJI_FOLDER:  SEND_STRING("\xF0\x9F\x93\x81"); return false;
+            case ARROW_L:       SEND_STRING("\xE2\x86\x90"); return false;
+            case ARROW_D:       SEND_STRING("\xE2\x86\x93"); return false;
+            case ARROW_U:       SEND_STRING("\xE2\x86\x91"); return false;
+            case ARROW_R:       SEND_STRING("\xE2\x86\x92"); return false;
+            case EM_DASH:       SEND_STRING("\xE2\x80\x94"); return false;
+            case EMOJI_CHECK:   SEND_STRING("\xE2\x9C\x85"); return false;
+            case EMOJI_CROSS:   SEND_STRING("\xE2\x9D\x8C"); return false;
+            case EMOJI_LINK:    SEND_STRING("\xF0\x9F\x94\x97"); return false;
+            case EMOJI_BOLT:    SEND_STRING("\xE2\x9A\xA1"); return false;
+            case EMOJI_STAR:    SEND_STRING("\xE2\xAD\x90"); return false;
+            case MC_TARGET:     SEND_STRING("\xF0\x9F\x8E\xAF"); return false;
+            case EMOJI_THUMB:   SEND_STRING("\xF0\x9F\x91\x8D"); return false;
+            case EMOJI_FLEX:    SEND_STRING("\xF0\x9F\x92\xAA"); return false;
+            case MC_BULB:       SEND_STRING("\xF0\x9F\x92\xA1"); return false;
+            case MC_FIRE:       SEND_STRING("\xF0\x9F\x94\xA5"); return false;
         }
     }
     return true;
 }
-EOF
