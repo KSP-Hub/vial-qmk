@@ -30,34 +30,34 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [LAYER_BASE] = LAYOUT_charybdis_4x6(
-    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    MO(5),
+    KC_ESC,  LT(5,KC_1), KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    MO(5),
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    LT(4,KC_LBRC),
-    MC_DOT_SFT, KC_A, KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, MC_COMM_SPC,
+    MC_DOT_SFT, KC_A, KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, MC_COMM_SPC, 
     LSFT(KC_LCTL), LSFT_T(KC_Z), LCTL_T(KC_X), KC_C, KC_V, KC_B,  KC_N,    KC_M,    KC_COMM, KC_DOT,  LALT_T(KC_QUOT), RALT_T(KC_RBRC),
-    LGUI(KC_SPC), MO(2), LT(3,KC_BSPC), LCTL_T(KC_DEL), LSFT_T(KC_SPC), MO(1), LALT_T(KC_ENT), KC_LGUI
+    LGUI(KC_SPC), MO(2), LT(3,KC_DEL), LCTL_T(KC_BSPC), LSFT_T(KC_SPC), MO(1), LALT_T(KC_ENT), KC_LGUI
 ),
 
 [LAYER_SYMBOLS] = LAYOUT_charybdis_4x6(
     MC_PILCROW, MC_COPYR, MC_REGISTERED, MC_SECTION, MC_TRADE, MC_ELLIPSIS, MC_PI, MC_SUM, MC_SIGMA, MC_INFINITY, MC_DEGREE, MC_SQUARE_ROOT,
-    KC_CAPS,    KC_GRV,   MC_APPROXIMATE,KC_NO,      MC_LDQUO, MC_RDQUO,    MC_LESS_EQUAL, MC_GREATER_EQUAL, MC_INTEGRAL, MC_IDENTICAL, KC_NO, KC_NO,
-    MC_LAQUO,   KC_NO,    KC_NO,         MC_BULLET,  KC_MINS,  KC_SLSH,     KC_BSLS,       KC_EQL,           KC_NO,         KC_NO,        KC_NO, MC_RAQUO,
-    KC_TRNS,    KC_TRNS,  TG(1),         MC_NOT,     MC_ENDASH,MC_EMDASH,   MC_NOT_EQUAL,  MC_PLUS_MINUS,    MC_DIVIDE,     MC_MULTIPLY,  KC_TRNS, KC_TRNS,
+    KC_CAPS,    KC_GRV,   MC_APPROXIMATE,KC_NO,      MC_LDQUO, MC_RDQUO,    MC_LESS_EQUAL, MC_GREATER_EQUAL, MC_INTEGRAL, MC_IDENTICAL, TG(1), KC_NO,
+    MC_LAQUO,   KC_NO,    KC_NO,         MC_BULLET,  KC_MINS,  KC_SLSH,     KC_BSLS,       KC_EQL,           KC_BSPC,     KC_NO,        KC_NO, MC_RAQUO,
+    KC_TRNS,    KC_TRNS,  KC_TRNS,       QK_BOOT,    MC_ENDASH,MC_EMDASH,   MC_NOT_EQUAL,  MC_PLUS_MINUS,    MC_DIVIDE,   MC_MULTIPLY,  KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
 [LAYER_NAV] = LAYOUT_charybdis_4x6(
     KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-    KC_TRNS, KC_TRNS, KC_SCRL, KC_PSCR, KC_INS,  KC_NO,      KC_NO,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_F12,
+    KC_TRNS, KC_NO,   KC_SCRL, KC_PSCR, KC_INS,  TG(2),      KC_NO,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_F12,
     LCTL(LSFT(KC_Z)), LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_NO,  KC_NO,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, TG(2), KC_NO, KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
 [LAYER_MOUSE] = LAYOUT_charybdis_4x6(
     KC_ESC,  KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, TG(3),      KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_SLEP, KC_PWR,
-    KC_TRNS, POINTER_DEFAULT_DPI_FORWARD, POINTER_DEFAULT_DPI_REVERSE, SNIPING_MODE, POINTER_SNIPING_DPI_FORWARD, POINTER_SNIPING_DPI_REVERSE, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS,
+    KC_TRNS, DPI_MOD, DPI_RMOD, SNIPING_MODE, S_D_MOD, S_D_RMOD, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS,
     KC_NO, KC_MS_LEFT, KC_MS_DOWN, KC_MS_UP, KC_MS_RIGHT, DRAGSCROLL_MODE, MS_BTN4, MS_BTN1, MS_BTN3, MS_BTN2, MS_BTN5, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, TG(3), KC_NO, KC_NO, KC_NO, KC_NO, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
@@ -65,16 +65,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   MC_CHECK,KC_NO,   MC_BULB, MC_FIRE, MC_NUMERO,
     KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      MC_WARN, EMOJI_WARN, EMOJI_QUEST, EMOJI_MAIL, EMOJI_PHONE, EMOJI_FOLDER,
     KC_TRNS, ARROW_L, ARROW_D, ARROW_U, ARROW_R, KC_NO,      EM_DASH, EMOJI_CHECK, EMOJI_CROSS, EMOJI_LINK, EMOJI_BOLT, EMOJI_STAR,
-    KC_TRNS, KC_TRNS, TG(4),   KC_NO,   KC_NO,   KC_NO,      MC_TARGET, EMOJI_THUMB, EMOJI_FLEX, KC_NO, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_NO,   KC_NO,   KC_NO,   TG(4),      MC_TARGET, EMOJI_THUMB, EMOJI_FLEX, KC_NO, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
 [LAYER_SYSTEM] = LAYOUT_charybdis_4x6(
-    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   EE_CLR,     QK_BOOT, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
+    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      QK_BOOT, KC_NO,   EE_CLR,  KC_NO,   KC_NO,   KC_TRNS,
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   TG(5),   KC_NO,   KC_NO,   KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 )
 
 };
@@ -89,17 +89,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-            // ИСПРАВЛЕНИЕ 1: Работает в любой раскладке
-            case MC_DOT_SFT:
-                tap_code(KC_DOT);
-                tap_code(KC_SPC);
-                set_oneshot_mods(MOD_LSFT);
-                return false;
-            case MC_COMM_SPC:
-                tap_code(KC_COMM);
-                tap_code(KC_SPC);
-                return false;
-
+            case MC_DOT_SFT:    SEND_STRING(". "); set_oneshot_mods(MOD_LSFT); return false;
+            case MC_COMM_SPC:   SEND_STRING(", "); return false;
             case MC_PILCROW:    SEND_STRING("\xC2\xB6"); return false;
             case MC_COPYR:      SEND_STRING("\xC2\xA9"); return false;
             case MC_REGISTERED: SEND_STRING("\xC2\xAE"); return false;
