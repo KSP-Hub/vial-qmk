@@ -51,16 +51,16 @@ tap_dance_action_t tap_dance_actions[] = {
 
 // ===================== COMBOS =====================
 enum combos {
-    COMBO_DV_HOME = 0,
-    COMBO_KM_END,
+    COMBO_DF_HOME = 0,
+    COMBO_JK_END,
 };
 
-const uint16_t PROGMEM combo_dv[] = {LCTL_T(KC_D), KC_V, COMBO_END};
-const uint16_t PROGMEM combo_km[] = {LCTL_T(KC_K), KC_M, COMBO_END};
+const uint16_t PROGMEM combo_df[] = {KC_D, KC_V, COMBO_END};
+const uint16_t PROGMEM combo_jk[] = {KC_K, KC_M, COMBO_END};
 
 combo_t key_combos[] = {
-    [COMBO_DV_HOME] = COMBO(combo_dv, KC_HOME),
-    [COMBO_KM_END]  = COMBO(combo_km, KC_END),
+    [COMBO_DF_HOME] = COMBO(combo_df, KC_HOME),
+    [COMBO_JK_END]  = COMBO(combo_jk, KC_END),
 };
 
 // ===================== KEYMAPS (7 слоёв) =====================
