@@ -32,6 +32,13 @@ RP2040 Pro Micro + Elite-C Holder 2.1 + PMW3360
 ✅ SPLIT POINTING — ОБЯЗАТЕЛЬНО ДЛЯ ТРЕКБОЛА НА ПРАВОЙ ПОЛОВИНЕ
 ========================================================== */
 #define SPLIT_POINTING_ENABLE
+#define POINTING_DEVICE_COMBINED
 #define POINTING_DEVICE_RIGHT
 #define POINTING_DEVICE_ROTATION_180
 #define MASTER_RIGHT
+
+/* ==========================================================
+✅ POINTER DEVICE FIXES
+========================================================== */
+#define POINTING_DEVICE_INVERT_X
+#define LAYER_POINTER 3
