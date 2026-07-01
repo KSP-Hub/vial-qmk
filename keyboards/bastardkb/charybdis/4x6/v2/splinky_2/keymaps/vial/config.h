@@ -30,4 +30,4 @@
 #define POINTING_DEVICE_RIGHT
 #define POINTING_DEVICE_COMBINED
 /* Trackball orientation: try one at a time */
-#define POINTING_DEVICE_ROTATION_180
+#define POINTING_DEVICE_INVERT_X

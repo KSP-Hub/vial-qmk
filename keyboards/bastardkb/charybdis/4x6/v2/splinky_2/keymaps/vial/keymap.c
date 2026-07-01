@@ -136,12 +136,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MC_DOT_SFT:
-                tap_code(KC_PDOT);
+                send_string("."); // Гарантированная точка в ЛЮБОЙ раскладке!
                 tap_code(KC_SPC);
                 set_oneshot_mods(MOD_LSFT);
                 return false;
             case MC_COMM_SPC:
-                tap_code(KC_PCMM);
+                send_string(","); // Гарантированная запятая в ЛЮБОЙ раскладке!
                 tap_code(KC_SPC);
                 return false;
         }
