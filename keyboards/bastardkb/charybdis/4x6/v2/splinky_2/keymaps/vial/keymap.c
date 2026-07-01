@@ -55,8 +55,8 @@ enum combos {
     COMBO_JK_END,
 };
 
-const uint16_t PROGMEM combo_df[] = {LCTL_T(KC_D), LSFT_T(KC_F), COMBO_END};
-const uint16_t PROGMEM combo_jk[] = {LSFT_T(KC_J), LCTL_T(KC_K), COMBO_END};
+const uint16_t PROGMEM combo_df[] = {KC_D, KC_V, COMBO_END};
+const uint16_t PROGMEM combo_jk[] = {KC_K, KC_M, COMBO_END};
 
 combo_t key_combos[] = {
     [COMBO_DF_HOME] = COMBO(combo_df, KC_HOME),
@@ -136,12 +136,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MC_DOT_SFT:
-                tap_code(KC_DOT);
+                tap_code(KC_PDOT);
                 tap_code(KC_SPC);
                 set_oneshot_mods(MOD_LSFT);
                 return false;
             case MC_COMM_SPC:
-                tap_code(KC_COMM);
+                tap_code(KC_PCMM);
                 tap_code(KC_SPC);
                 return false;
         }
