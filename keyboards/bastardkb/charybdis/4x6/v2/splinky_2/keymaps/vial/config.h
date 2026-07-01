@@ -35,5 +35,5 @@
 #define POINTING_DEVICE_RIGHT
 #define POINTING_DEVICE_COMBINED
 
-/* Trackball orientation: INVERT_X fixes Right=Left without flipping Y */
-#define POINTING_DEVICE_INVERT_X
+/* Trackball orientation: INVERT_Y fixes vertical without breaking horizontal */
+#define POINTING_DEVICE_INVERT_Y

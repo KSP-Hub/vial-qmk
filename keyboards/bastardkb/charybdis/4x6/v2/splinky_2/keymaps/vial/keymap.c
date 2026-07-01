@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LT(4,KC_ESC), LT(2,KC_SPC), LT(3,KC_TAB), LT(6,KC_BSPC),             LT(5,KC_DEL), TD(TD_LEFT), TD(TD_RIGHT), LT(1,KC_ENT)
     ),
     
-    // СЛОЙ 1: SYMBOLS (ИСПРАВЛЕНО: убраны лишние KC_NO в конце)
+    // СЛОЙ 1: SYMBOLS (чистые символы, без Mod-Tap)
     [1] = LAYOUT(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LPRN, KC_RPRN, KC_SLSH, KC_TRNS, KC_TRNS, KC_BSLS,                 KC_PSLS, KC_TRNS
     ),
 
-    // СЛОЙ 2: NAV
+    // СЛОЙ 2: NAV (стрелки + Home/End/PgUp/PgDn)
     [2] = LAYOUT(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         LCTL(LSFT(KC_Z)), LCTL(KC_V), LCTL(KC_C), LCTL(KC_X), LCTL(KC_Z), KC_TRNS,
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC, KC_DEL,                                 KC_TRNS, KC_TRNS, KC_ENT
     ),
 
-    // СЛОЙ 3: MOUSE
+    // СЛОЙ 3: MOUSE (чистые кнопки + SNIPING_MODE + DRAGSCROLL_MODE)
     [3] = LAYOUT(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   SNIPING_MODE, KC_NO,                    LCTL(LSFT(KC_Z)), LCTL(KC_V), LCTL(KC_C), LCTL(KC_X), LCTL(KC_Z), KC_TRNS,
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,                                  KC_NO,   KC_TRNS, KC_NO
     ),
 
-    // СЛОЙ 4: MEDIA + DPI
+    // СЛОЙ 4: MEDIA + DPI + SLEEP/POWER
     [4] = LAYOUT(
         KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         DPI_MOD, DPI_RMOD, S_D_MOD, S_D_RMOD, KC_SLEP, KC_PWR,
         KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, KC_MUTE,                                KC_TRNS, KC_TRNS, KC_MSTP
     ),
 
-    // СЛОЙ 5: SYSTEM
+    // СЛОЙ 5: SYSTEM (F-клавиши)
     [5] = LAYOUT(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,                       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_APP,  KC_SPC,  KC_TAB,  KC_TRNS, KC_TRNS,                                KC_TRNS, KC_TRNS, KC_TRNS
     ),
 
-    // СЛОЙ 6: NUMPAD + BOOT
+    // СЛОЙ 6: NUMPAD + BOOT/EE_CLR
     [6] = LAYOUT(
         KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   QK_BOOT,                       QK_BOOT, KC_NO,   EE_CLR,  KC_NO,   KC_NO,   KC_TRNS,
         KC_NO,   KC_P9,   KC_P0,   KC_NO,   KC_NO,   KC_NO,                         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
@@ -129,17 +129,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// ===================== SMART PUNCTUATION =====================
+// ===================== SMART PUNCTUATION (Linux Unicode Bypass) =====================
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MC_DOT_SFT:
-                tap_code(KC_DOT); // Точка (keyd превратит в "." в любой раскладке)
+                // Linux Unicode: Ctrl+Shift+U, 2, e, Space (DOT + SPACE)
+                register_code(KC_LCTL);
+                register_code(KC_LSFT);
+                tap_code(KC_U);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_LCTL);
+                tap_code(KC_2);
+                tap_code(KC_E);
                 tap_code(KC_SPC);
-                set_oneshot_mods(MOD_LSFT);
+                set_oneshot_mods(MOD_LSFT); // Следующий символ будет заглавным
                 return false;
             case MC_COMM_SPC:
-                tap_code(KC_COMM); // Запятая (keyd превратит в "," в любой раскладке)
+                // Linux Unicode: Ctrl+Shift+U, 2, c, Space (COMMA + SPACE)
+                register_code(KC_LCTL);
+                register_code(KC_LSFT);
+                tap_code(KC_U);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_LCTL);
+                tap_code(KC_2);
+                tap_code(KC_C);
                 tap_code(KC_SPC);
                 return false;
         }
