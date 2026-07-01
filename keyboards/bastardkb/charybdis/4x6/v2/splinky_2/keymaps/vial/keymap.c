@@ -74,13 +74,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LT(4,KC_ESC), LT(2,KC_SPC), LT(3,KC_TAB), LT(6,KC_BSPC),             LT(5,KC_DEL), TD(TD_LEFT), TD(TD_RIGHT), LT(1,KC_ENT)
     ),
     
-    // СЛОЙ 1: SYMBOLS
+    // СЛОЙ 1: SYMBOLS (ИСПРАВЛЕНО: убраны лишние KC_NO в конце)
     [1] = LAYOUT(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_PERC, KC_LALT, KC_LCTL, KC_ASTR, KC_PLUS,                 KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_NO,   KC_EXLM, KC_NO,   KC_NO,   KC_NO,   KC_UNDS,                 KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS,
-        KC_LPRN, KC_RPRN, KC_SLSH, KC_TRNS, KC_TRNS, KC_BSLS,                 KC_PSLS, KC_TRNS, KC_NO,   KC_NO
+        KC_LPRN, KC_RPRN, KC_SLSH, KC_TRNS, KC_TRNS, KC_BSLS,                 KC_PSLS, KC_TRNS
     ),
 
     // СЛОЙ 2: NAV
@@ -134,12 +134,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MC_DOT_SFT:
-                send_string("."); // Универсальная точка (игнорирует раскладку ОС)
+                tap_code(KC_DOT); // Точка (keyd превратит в "." в любой раскладке)
                 tap_code(KC_SPC);
                 set_oneshot_mods(MOD_LSFT);
                 return false;
             case MC_COMM_SPC:
-                send_string(","); // Универсальная запятая (игнорирует раскладку ОС)
+                tap_code(KC_COMM); // Запятая (keyd превратит в "," в любой раскладке)
                 tap_code(KC_SPC);
                 return false;
         }
