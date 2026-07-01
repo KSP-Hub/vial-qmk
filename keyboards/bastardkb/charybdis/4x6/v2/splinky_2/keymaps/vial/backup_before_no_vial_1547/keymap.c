@@ -2,80 +2,23 @@
 
 // ===================== CUSTOM KEYCODES =====================
 enum custom_keycodes {
-    MC_DOT_SFT = SAFE_RANGE,
+    MC_DOT_SFT = QK_USER,
     MC_COMM_SPC,
-};
-
-// ===================== TAP DANCE (Multi-tap!) =====================
-enum {
-    TD_LEFT = 0,   // 1 тап = ←, 2+ тапа = ↓
-    TD_RIGHT,      // 1 тап = →, 2+ тапа = ↑
-};
-
-void td_left_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        register_code(KC_LEFT);
-    } else {
-        register_code(KC_DOWN);
-    }
-}
-
-void td_left_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        unregister_code(KC_LEFT);
-    } else {
-        unregister_code(KC_DOWN);
-    }
-}
-
-void td_right_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        register_code(KC_RIGHT);
-    } else {
-        register_code(KC_UP);
-    }
-}
-
-void td_right_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        unregister_code(KC_RIGHT);
-    } else {
-        unregister_code(KC_UP);
-    }
-}
-
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_LEFT]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_left_finished, td_left_reset),
-    [TD_RIGHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_right_finished, td_right_reset),
-};
-
-// ===================== COMBOS =====================
-enum combos {
-    COMBO_DF_HOME = 0,
-    COMBO_JK_END,
-};
-
-const uint16_t PROGMEM combo_df[] = {KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_jk[] = {KC_J, KC_K, COMBO_END};
-
-combo_t key_combos[] = {
-    [COMBO_DF_HOME] = COMBO(combo_df, KC_HOME),
-    [COMBO_JK_END]  = COMBO(combo_jk, KC_END),
 };
 
 // ===================== KEYMAPS (7 слоёв) =====================
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-// СЛОЙ 0: BASE
+// Слой 0: BASE
 [0] = LAYOUT(
     MO(6), KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, MO(6),
     KC_NO, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC,
     MC_DOT_SFT, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G, KC_H, LSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), LGUI_T(KC_SCLN), MC_COMM_SPC,
     KC_GRV, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_QUOT, RALT_T(KC_RBRC),
-    LT(4,KC_ESC), LT(2,KC_SPC), LT(3,KC_TAB), LT(6,KC_BSPC), LT(5,KC_DEL), TD(TD_LEFT), TD(TD_RIGHT), LT(1,KC_ENT)
+    LT(4,KC_ESC), LT(2,KC_SPC), LT(3,KC_TAB), LT(6,KC_BSPC), LT(5,KC_DEL), LT(2,KC_LEFT), LT(2,KC_RGHT), LT(1,KC_ENT)
 ),
 
-// СЛОЙ 1: SYMBOLS (чистые символы, без Mod-Tap)
+// Слой 1: SYMBOLS (только универсальные)
 [1] = LAYOUT(
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -84,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LPRN, KC_RPRN, KC_SLSH, KC_TRNS, KC_TRNS, KC_BSLS, KC_PSLS, KC_TRNS
 ),
 
-// СЛОЙ 2: NAV (стрелки + Home/End/PgUp/PgDn)
+// Слой 2: NAV (стрелки + Home/End/PgUp/PgDn)
 [2] = LAYOUT(
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, LCTL(LSFT(KC_Z)), LCTL(KC_V), LCTL(KC_C), LCTL(KC_X), LCTL(KC_Z), KC_TRNS,
@@ -93,16 +36,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC, KC_DEL, KC_TRNS, KC_TRNS, KC_ENT
 ),
 
-// СЛОЙ 3: MOUSE (чистые кнопки + SNIPING_MODE + DRAGSCROLL_MODE)
+// Слой 3: MOUSE (чистые кнопки, без Mod-Tap)
 [3] = LAYOUT(
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, LCTL(LSFT(KC_Z)), LCTL(KC_V), LCTL(KC_C), LCTL(KC_X), LCTL(KC_Z), KC_TRNS,
     KC_NO, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, KC_NO, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_NO,
-    KC_TRNS, KC_TRNS, KC_TRNS, SNIPING_MODE, DRAGSCROLL_MODE, KC_NO, KC_NO, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_TRNS, KC_NO
 ),
 
-// СЛОЙ 4: MEDIA + DPI + SLEEP/POWER
+// Слой 4: MEDIA + DPI + SLEEP/POWER
 [4] = LAYOUT(
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, DPI_MOD, DPI_RMOD, S_D_MOD, S_D_RMOD, KC_SLEP, KC_PWR,
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -111,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, KC_MUTE, KC_TRNS, KC_TRNS, KC_MSTP
 ),
 
-// СЛОЙ 5: SYSTEM (F-клавиши)
+// Слой 5: SYSTEM (F-клавиши)
 [5] = LAYOUT(
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO, KC_F9, KC_F10, KC_F11, KC_F12, KC_PSCR, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -120,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_APP, KC_SPC, KC_TAB, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
-// СЛОЙ 6: NUMPAD + BOOT/EE_CLR
+// Слой 6: NUMPAD + BOOT/EE_CLR
 [6] = LAYOUT(
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT, QK_BOOT, KC_NO, EE_CLR, KC_NO, KC_NO, KC_TRNS,
     KC_NO, KC_P9, KC_P0, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -136,12 +79,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MC_DOT_SFT:
-                tap_code(KC_PDOT);
+                tap_code(KC_DOT);
                 tap_code(KC_SPC);
                 set_oneshot_mods(MOD_LSFT);
                 return false;
             case MC_COMM_SPC:
-                tap_code(KC_PCMM);
+                tap_code(KC_COMM);
                 tap_code(KC_SPC);
                 return false;
         }
