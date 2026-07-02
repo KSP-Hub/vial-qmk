@@ -93,21 +93,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_P9,   KC_P0,   KC_NO,   KC_NO,   KC_NO,                         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_PEQL,                       KC_NO,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO,
         KC_NO,   KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_PMNS,                       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_PDOT, KC_PCMM, KC_NO,   KC_NO,   KC_NO,                                  KC_NO,   KC_NO,   KC_NO
+        KC_DOT,  KC_COMM, KC_NO,   KC_NO,   KC_NO,                                  KC_NO,   KC_NO,   KC_NO
     )
 };
 
-// ===================== SMART PUNCTUATION (The Golden Standard) =====================
+// ===================== SMART PUNCTUATION (KC_DOT/KC_COMM + keyd) =====================
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MC_DOT_SFT:
-                tap_code(KC_PDOT); // keyd перехватывает kp_decimal и отдает чистую точку!
+                tap_code(KC_DOT); // keyd перехватывает dot и отдает period (точку)!
                 tap_code(KC_SPC);
                 set_oneshot_mods(MOD_LSFT);
                 return false;
             case MC_COMM_SPC:
-                tap_code(KC_PCMM); // keyd перехватывает kp_comma и отдает чистую запятую!
+                tap_code(KC_COMM); // keyd перехватывает comma и отдает comma (запятую)!
                 tap_code(KC_SPC);
                 return false;
         }
@@ -115,8 +115,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// ===================== TRACKBALL X-AXIS INVERSION (C-Level Fix) =====================
+// ===================== TRACKBALL X-AXIS INVERSION =====================
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    mouse_report.x = -mouse_report.x; // Инвертируем X на уровне USB-репорта
+    mouse_report.x = -mouse_report.x;
     return mouse_report;
 }
