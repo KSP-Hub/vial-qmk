@@ -5,41 +5,19 @@ enum custom_keycodes {
     MC_COMM_SPC,
 };
 
-enum {
-    TD_LEFT = 0,
-    TD_RIGHT,
-};
-
-void td_left_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) register_code(KC_LEFT);
-    else register_code(KC_DOWN);
-}
-void td_left_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) unregister_code(KC_LEFT);
-    else unregister_code(KC_DOWN);
-}
-void td_right_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) register_code(KC_RIGHT);
-    else register_code(KC_UP);
-}
-void td_right_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) unregister_code(KC_RIGHT);
-    else unregister_code(KC_UP);
-}
-
+enum { TD_LEFT = 0, TD_RIGHT };
+void td_left_finished(tap_dance_state_t *state, void *user_data) { if (state->count == 1) register_code(KC_LEFT); else register_code(KC_DOWN); }
+void td_left_reset(tap_dance_state_t *state, void *user_data) { if (state->count == 1) unregister_code(KC_LEFT); else unregister_code(KC_DOWN); }
+void td_right_finished(tap_dance_state_t *state, void *user_data) { if (state->count == 1) register_code(KC_RIGHT); else register_code(KC_UP); }
+void td_right_reset(tap_dance_state_t *state, void *user_data) { if (state->count == 1) unregister_code(KC_RIGHT); else unregister_code(KC_UP); }
 tap_dance_action_t tap_dance_actions[] = {
     [TD_LEFT]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_left_finished, td_left_reset),
     [TD_RIGHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_right_finished, td_right_reset),
 };
 
-enum combos {
-    COMBO_DV_HOME = 0,
-    COMBO_KM_END,
-};
-
+enum combos { COMBO_DV_HOME = 0, COMBO_KM_END };
 const uint16_t PROGMEM combo_dv[] = {LCTL_T(KC_D), KC_V, COMBO_END};
 const uint16_t PROGMEM combo_km[] = {LCTL_T(KC_K), KC_M, COMBO_END};
-
 combo_t key_combos[] = {
     [COMBO_DV_HOME] = COMBO(combo_dv, KC_HOME),
     [COMBO_KM_END]  = COMBO(combo_km, KC_END),
@@ -93,21 +71,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_P9,   KC_P0,   KC_NO,   KC_NO,   KC_NO,                         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_PEQL,                       KC_NO,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO,
         KC_NO,   KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_PMNS,                       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_DOT,  KC_COMM, KC_NO,   KC_NO,   KC_NO,                                  KC_NO,   KC_NO,   KC_NO
+        KC_F16,  KC_F17,  KC_NO,   KC_NO,                                           KC_F15,  KC_NO,   KC_NO,   KC_NO
     )
 };
 
-// ===================== SMART PUNCTUATION (KC_DOT/KC_COMM + keyd) =====================
+// ===================== SMART PUNCTUATION VIA F13 / F14 =====================
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MC_DOT_SFT:
-                tap_code(KC_DOT); // keyd перехватывает dot и отдает period (точку)!
+                tap_code(KC_F13); // keyd -> period (.)
                 tap_code(KC_SPC);
                 set_oneshot_mods(MOD_LSFT);
                 return false;
             case MC_COMM_SPC:
-                tap_code(KC_COMM); // keyd перехватывает comma и отдает comma (запятую)!
+                tap_code(KC_F14); // keyd -> comma (,)
                 tap_code(KC_SPC);
                 return false;
         }
