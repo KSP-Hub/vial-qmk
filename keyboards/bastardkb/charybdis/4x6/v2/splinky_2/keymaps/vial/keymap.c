@@ -1,10 +1,12 @@
 #include QMK_KEYBOARD_H
 
+// ===================== CUSTOM KEYCODES =====================
 enum custom_keycodes {
     MC_DOT_SFT = SAFE_RANGE,
     MC_COMM_SPC,
 };
 
+// ===================== TAP DANCE (Multi-tap!) =====================
 enum {
     TD_LEFT = 0,
     TD_RIGHT,
@@ -32,6 +34,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_RIGHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_right_finished, td_right_reset),
 };
 
+// ===================== COMBOS =====================
 enum combos {
     COMBO_DV_HOME = 0,
     COMBO_KM_END,
@@ -45,6 +48,7 @@ combo_t key_combos[] = {
     [COMBO_KM_END]  = COMBO(combo_km, KC_END),
 };
 
+// ===================== KEYMAPS (7 слоёв) =====================
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         MO(6),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    MO(6),
@@ -97,14 +101,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// ===================== SMART PUNCTUATION (The simple way!) =====================
+// ===================== SMART PUNCTUATION (The elegant way!) =====================
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MC_DOT_SFT:
                 tap_code(KC_PDOT); // keyd превращает kp_decimal в period (точку) в ЛЮБОЙ раскладке!
                 tap_code(KC_SPC);
-                set_oneshot_mods(MOD_LSFT);
+                set_oneshot_mods(MOD_LSFT); // Встроенная функция QMK: Shift для следующей буквы
                 return false;
             case MC_COMM_SPC:
                 tap_code(KC_PCMM); // keyd превращает kp_comma в comma (запятую) в ЛЮБОЙ раскладке!
