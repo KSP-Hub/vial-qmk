@@ -75,20 +75,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// ===================== SMART PUNCTUATION (KC_PDOT/KC_PCMM + wait_ms) =====================
+// ===================== SMART PUNCTUATION (The Golden Standard) =====================
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MC_DOT_SFT:
-                tap_code(KC_PDOT); 
-                wait_ms(100);      // ДАЕМ ЯДРУ LINUX И keyd ВРЕМЯ ОБРАБОТАТЬ kp_decimal!
+                tap_code(KC_PDOT); // Отправляем нампад-точку
+                wait_ms(50);       // Ждем, пока keyd перехватит и отдаст period
                 tap_code(KC_SPC);
-                wait_ms(50);       // Пауза перед шифтом
                 set_oneshot_mods(MOD_LSFT);
                 return false;
             case MC_COMM_SPC:
-                tap_code(KC_PCMM); 
-                wait_ms(100);      // ДАЕМ ЯДРУ LINUX И keyd ВРЕМЯ ОБРАБОТАТЬ kp_comma!
+                tap_code(KC_PCMM); // Отправляем нампад-запятую
+                wait_ms(50);       // Ждем, пока keyd перехватит и отдаст comma
                 tap_code(KC_SPC);
                 return false;
         }
