@@ -48,8 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [3] = LAYOUT(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, SNIPING_MODE, KC_NO, LCTL(LSFT(KC_Z)), LCTL(KC_V), LCTL(KC_C), LCTL(KC_X), LCTL(KC_Z), KC_TRNS,
-        KC_NO, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, KC_NO, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, DRAGSCROLL_MODE, KC_NO, KC_NO, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, KC_TRNS,
+        KC_NO, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_NO, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, DRAGSCROLL_MODE, KC_NO, KC_NO, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_TRNS, KC_NO
     ),
     [4] = LAYOUT(
@@ -80,14 +80,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MC_DOT_SFT:
-                tap_code(KC_PDOT); // Отправляем нампад-точку
-                wait_ms(50);       // Ждем, пока keyd перехватит и отдаст period
+                tap_code(KC_PDOT);
+                wait_ms(50);
                 tap_code(KC_SPC);
                 set_oneshot_mods(MOD_LSFT);
                 return false;
             case MC_COMM_SPC:
-                tap_code(KC_PCMM); // Отправляем нампад-запятую
-                wait_ms(50);       // Ждем, пока keyd перехватит и отдаст comma
+                tap_code(KC_PCMM);
+                wait_ms(50);
                 tap_code(KC_SPC);
                 return false;
         }
