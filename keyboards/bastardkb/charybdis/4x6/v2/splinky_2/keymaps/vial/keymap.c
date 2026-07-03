@@ -1,10 +1,5 @@
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes { 
-    MC_DOT_SFT = SAFE_RANGE, 
-    MC_COMM_SPC 
-};
-
 enum { TD_LEFT = 0, TD_RIGHT };
 void td_left_finished(tap_dance_state_t *state, void *user_data) { if (state->count == 1) register_code(KC_LEFT); else register_code(KC_DOWN); }
 void td_left_reset(tap_dance_state_t *state, void *user_data) { if (state->count == 1) unregister_code(KC_LEFT); else unregister_code(KC_DOWN); }
@@ -26,9 +21,9 @@ combo_t key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         MO(6),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    MO(6),
-        KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
-        MC_DOT_SFT, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G,   KC_H, LSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), LGUI_T(KC_SCLN), MC_COMM_SPC,
-        KC_GRV,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_QUOT, RALT_T(KC_RBRC),
+        KC_SLSH,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
+        KC_PDOT, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G,   KC_H, LSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), LGUI_T(KC_SCLN), KC_PCMM,
+        LCTL_T(KC_GRV),   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_QUOT, RALT_T(KC_RBRC),
         LT(4,KC_ESC), LT(2,KC_SPC), LT(3,KC_TAB), LT(6,KC_BSPC),             LT(5,KC_DEL), TD(TD_LEFT), TD(TD_RIGHT), LT(1,KC_ENT)
     ),
     [1] = LAYOUT(
@@ -36,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_PERC, KC_LALT, KC_LCTL, KC_ASTR, KC_PLUS,                 KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_NO,   KC_EXLM, KC_NO,   KC_NO,   KC_NO,   KC_UNDS,                 KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS,
-        KC_LPRN, KC_RPRN, KC_SLSH, KC_TRNS,                                  KC_BSLS, KC_PSLS, KC_TRNS, KC_NO
+        KC_LPRN, KC_RPRN, KC_PSLS, KC_NO,                                KC_NO, KC_NO, KC_BSLS, KC_NO
     ),
     [2] = LAYOUT(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
@@ -71,34 +66,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_P9,   KC_P0,   KC_NO,   KC_NO,   KC_NO,                         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_PEQL,                       KC_NO,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO,
         KC_NO,   KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_PMNS,                       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_F17,  KC_F18,  KC_NO,   KC_NO,                                           KC_F19,  KC_NO,   KC_NO,   KC_NO
+        KC_NO,  KC_NO,  KC_NO,   KC_NO,                                           KC_NO,  KC_NO,   KC_NO,   KC_NO
     )
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-            case MC_DOT_SFT:
-                register_code(KC_F17);
-                wait_ms(30);
-                unregister_code(KC_F17);
-                wait_ms(20);
-                tap_code(KC_SPC);
-                set_oneshot_mods(MOD_LSFT);
-                return false;
-
-            case MC_COMM_SPC:
-                register_code(KC_F18);
-                wait_ms(30);
-                unregister_code(KC_F18);
-                wait_ms(20);
-                tap_code(KC_SPC);
-                return false;
-        }
-    }
-    return true;
-}
-
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     mouse_report.x = -mouse_report.x;
     return mouse_report;
