@@ -14,3 +14,7 @@ SPACE_CADET_ENABLE = no
 KEY_OVERRIDE_ENABLE = no
 SNIPING_ENABLE = yes
 DRAGSCROLL_ENABLE = yes
+
+# Disable bootloader auto-entry
+BOOTMAGIC_ENABLE = no
+MAGIC_ENABLE = no
