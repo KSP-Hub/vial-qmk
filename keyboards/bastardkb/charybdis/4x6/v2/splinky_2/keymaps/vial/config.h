@@ -27,9 +27,25 @@
 #define POINTING_DEVICE_RIGHT
 #define POINTING_DEVICE_COMBINED
 
-// ===================== DISABLE BOOTLOADER AUTO-START =====================
+#define NO_ACTION_ONESHOT
+
+
+
+
+
+
+// ===================== VIAL & PROTECTION CONFIG =====================
+#define DYNAMIC_KEYMAP_LAYER_COUNT 7
+#define VIAL_KEYBOARD_UID { 0x7C, 0x8A, 0x1B, 0x3F, 0x9D, 0xE2, 0x45, 0x67 }
+#define VIAL_UNLOCK_COMBO_ROWS { 0, 2 }
+#define VIAL_UNLOCK_COMBO_COLS { 0, 11 }
+
+// Защита от конфликта с хардкодом в keymap.c (Vial не будет создавать свои массивы)
+#define VIAL_TAP_DANCE_ENTRIES 0
+#define VIAL_COMBO_ENTRIES 0
+
+// Защита от случайного входа в Bootloader
 #undef BOOTMAGIC_ROW
 #undef BOOTMAGIC_COLUMN
 #define BOOTMAGIC_ROW 255
 #define BOOTMAGIC_COLUMN 255
-#define NO_ACTION_ONESHOT
