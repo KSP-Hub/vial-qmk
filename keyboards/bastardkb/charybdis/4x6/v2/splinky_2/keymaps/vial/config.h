@@ -37,8 +37,8 @@
 // ===================== VIAL & PROTECTION CONFIG =====================
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7
 #define VIAL_KEYBOARD_UID { 0x7C, 0x8A, 0x1B, 0x3F, 0x9D, 0xE2, 0x45, 0x67 }
-#define VIAL_UNLOCK_COMBO_ROWS { 0, 2 }
-#define VIAL_UNLOCK_COMBO_COLS { 0, 11 }
+#define VIAL_UNLOCK_COMBO_ROWS { 0, 5 }
+#define VIAL_UNLOCK_COMBO_COLS { 0, 0 }
 
 // Защита от конфликта с хардкодом в keymap.c (Vial не будет создавать свои массивы)
 #define VIAL_TAP_DANCE_ENTRIES 0
