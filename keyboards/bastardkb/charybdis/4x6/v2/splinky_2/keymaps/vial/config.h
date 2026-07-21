@@ -41,8 +41,8 @@
 #define VIAL_UNLOCK_COMBO_COLS { 0, 0 }
 
 // Защита от конфликта с хардкодом в keymap.c (Vial не будет создавать свои массивы)
-#define VIAL_TAP_DANCE_ENTRIES 0
-#define VIAL_COMBO_ENTRIES 0
+#define VIAL_TAP_DANCE_ENTRIES 2
+#define VIAL_COMBO_ENTRIES 2
 
 // Защита от случайного входа в Bootloader
 #undef BOOTMAGIC_ROW
