@@ -1,5 +1,4 @@
 #pragma once
-
 #undef SPI_DRIVER
 #undef SPI_SCK_PIN
 #undef SPI_MOSI_PIN
@@ -10,44 +9,15 @@
 #define SPI_MOSI_PIN GP23
 #define SPI_MISO_PIN GP20
 #define POINTING_DEVICE_CS_PIN GP16
-
 #undef MATRIX_COL_PINS
 #undef MATRIX_ROW_PINS
 #define MATRIX_COL_PINS { GP27, GP28, GP21, GP6, GP7, GP8 }
 #define MATRIX_ROW_PINS { GP29, GP26, GP5, GP4, GP9 }
-
 #define TAPPING_TERM 200
 #define LAYER_POINTER 3
-
 #define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 #define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS 1000
 #define CHARYBDIS_AUTO_SNIPING_ON_LAYER LAYER_POINTER
-
 #define SPLIT_POINTING_ENABLE
 #define POINTING_DEVICE_RIGHT
 #define POINTING_DEVICE_COMBINED
-
-#define NO_ACTION_ONESHOT
-
-
-
-
-
-
-// ===================== VIAL & PROTECTION CONFIG =====================
-#define DYNAMIC_KEYMAP_LAYER_COUNT 7
-#define VIAL_KEYBOARD_UID { 0x7C, 0x8A, 0x1B, 0x3F, 0x9D, 0xE2, 0x45, 0x67 }
-#define VIAL_UNLOCK_COMBO_ROWS { 0, 5 }
-#define VIAL_UNLOCK_COMBO_COLS { 0, 0 }
-
-// Защита от конфликта с хардкодом в keymap.c (Vial не будет создавать свои массивы)
-#define VIAL_TAP_DANCE_ENTRIES 2
-#define VIAL_COMBO_ENTRIES 2
-
-// Защита от случайного входа в Bootloader
-#undef BOOTMAGIC_ROW
-#undef BOOTMAGIC_COLUMN
-#define BOOTMAGIC_ROW 255
-#define BOOTMAGIC_COLUMN 255
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 7
