@@ -13,11 +13,17 @@
     },
     "1\n\n\n\n\n\n\n\n!",
     "2\n\n\n\n\n\n\n\n\" @",
-    "3\n\n\n\n\n\n\n\n№ #",
-    "4\n\n\n\n\n\n\n\n; $",
     {
       "t": "#ffffff\n\n\n\n\n#667aff\n\n\n#E65100",
       "a": 0
+    },
+    "3\n\n\n\n\nEe_Clr\n\n\n№ #",
+    {
+      "t": "#ffffff\n\n\n\n#667aff\n#667aff\n\n\n#E65100"
+    },
+    "4\n\n\n\n+\nEe_Clr\n\n\n; $",
+    {
+      "t": "#ffffff\n\n\n\n\n#667aff\n\n\n#E65100"
     },
     "5\n\n\n\n\nBL\n\n\n%",
     {
@@ -25,16 +31,11 @@
       "t": "#ffffff\n#ff00cf\n\n\n\n#667aff\n\n\n#E65100"
     },
     "6\nDPI +\n\n\n\nBL\n\n\n: ^",
+    "7\nDPI -\n\n\n\nEe_Clr\n\n\n? &",
     {
-      "t": "#ffffff\n#ff00cf\n\n\n\n\n\n\n#E65100",
-      "a": 4
+      "t": "#ffffff\n#ff00cf\n\n\n#667aff\n#667aff\n\n\n#E65100"
     },
-    "7\nDPI -\n\n\n\n\n\n\n? &",
-    {
-      "t": "#ffffff\n#ff00cf\n\n\n\n#667aff\n\n\n#E65100",
-      "a": 0
-    },
-    "8\n⊙+\n\n\n\nEe_Clr\n\n\n*",
+    "8\n⊙+\n\n\n+\nEe_Clr\n\n\n*",
     {
       "t": "#ffffff\n#ff00cf\n\n\n\n\n\n\n#E65100",
       "a": 4
@@ -93,10 +94,19 @@
     {
       "t": "#ffffff",
       "fa": [
-        4
+        7,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3
       ]
     },
-    ". /",
+    ".\n\n\n\n\n\n\n\n\n/",
     {
       "t": "#ffffff\n#a40505\n#44ff00\n#667aff\n\n\n\n\n\n#c69c2a",
       "a": 0,
@@ -111,7 +121,7 @@
     {
       "f": 2
     },
-    "в D\nF7\n\n7\nCH\nCtrl\n\n\n\nM🖱",
+    "в D\nF7\n\n7\nhm\nCtrl\n\n\n\nM🖱",
     {
       "t": "#ffffff\n#a40505\n#44ff00\n#667aff\n\n#E65100\n\n\n\n#c69c2a",
       "fa": [
@@ -167,7 +177,7 @@
     {
       "t": "#ffffff\n#ff00cf\n#c69c2a\n#75ffea"
     },
-    "л K\n🔈–\n↓\n▼\nCtrl\nCE",
+    "л K\n🔈–\n↓\n▼\nCtrl\nnd",
     "д L\n🔈+\n↑\n▲\nAlt",
     {
       "t": "#ffffff\n#ff00cf\n#c69c2a\n#75ffea\n\n\n\n\n#E65100"
@@ -177,10 +187,19 @@
       "t": "#ffffff",
       "a": 4,
       "fa": [
+        7,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
         4
       ]
     },
-    ", ?"
+    ",\n\n\n\n\n\n\n\n\n?"
   ],
   [
     {
@@ -203,7 +222,7 @@
       "a": 0,
       "f": 2
     },
-    "м V\nF4\n\n4\nCH\n\n\n\n\n↕",
+    "м V\nF4\n\n4\nhm\n\n\n\n\n↕",
     {
       "t": "#ffffff\n#a40505\n#44ff00\n#667aff",
       "a": 4,
@@ -240,15 +259,17 @@
     "ю .\n\n↑+\nPgUp\n\n\n\n\n>",
     "э '\n\n→+\nEnd\n\n\n\n\n\"",
     {
-      "t": "#ffffff\n\n\n\n\n\n\n\n#E65100"
+      "t": "#ffffff\n\n\n\n\n#667aff\n\n\n#E65100",
+      "a": 0
     },
-    "ъ ]\n\n\n\nAlt Gr\n\n\n\n}"
+    "ъ ]\n\n\n\n\nAlt Gr\n\n\n}"
   ],
   [
     {
       "y": 1,
       "x": 9,
-      "t": "#ffffff\n#ff00cf\n\n\n#44ff00"
+      "t": "#ffffff\n#ff00cf\n\n\n#44ff00",
+      "a": 4
     },
     "↵\n■\n\n\nSym1"
   ],
@@ -256,8 +277,31 @@
     {
       "ry": 4.5,
       "y": -1.5,
-      "t": "#ffffff\n\n#E65100",
+      "t": "#ffffff\n\n\n\n\n#667aff",
+      "a": 3
+    },
+    "\n\n\n\n\nAlt Gr"
+  ],
+  [
+    {
+      "rx": 0.75,
+      "ry": 0,
+      "y": 3,
+      "x": 11.25,
+      "t": "#ffffff\n\n#c69c2a\n#75ffea",
       "a": 0,
+      "f": 2
+    },
+    "ь M\n\n←+\nHome\n\nnd"
+  ],
+  [
+    {
+      "rx": 4.900227,
+      "ry": 4.858429,
+      "y": -3.858429,
+      "x": -4.900227,
+      "t": "#ffffff\n\n#E65100",
+      "a": 4,
       "fa": [
         3,
         0,
@@ -270,30 +314,7 @@
         6
       ]
     },
-    "ё\n\n~\n\n\nCtrl\n\n\n`"
-  ],
-  [
-    {
-      "rx": 0.75,
-      "ry": 0,
-      "y": 3,
-      "x": 11.25,
-      "t": "#ffffff\n\n#c69c2a\n#75ffea",
-      "f": 2
-    },
-    "ь M\n\n←+\nHome\n\nCE"
-  ],
-  [
-    {
-      "rx": 4.900227,
-      "ry": 4.858429,
-      "y": -3.858429,
-      "x": -4.900227,
-      "t": "#ffffff\n\n\n\n\n\n\n\n#E65100",
-      "a": 4,
-      "f": 2
-    },
-    ". /\n\n\n\n\n\n\n\n, ?"
+    "ё\n\n~\n\n\n\n\n\n`"
   ],
   [
     {
@@ -361,7 +382,8 @@
       "y": 0.011961999999999584,
       "x": -4.7885480000000005,
       "t": "#ffffff",
-      "a": 0
+      "a": 0,
+      "f": 2
     },
     "←\n\n\n\nt1\n\n\n\n\n\n↓\nt2"
   ],
